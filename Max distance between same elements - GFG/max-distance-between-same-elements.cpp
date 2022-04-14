@@ -10,16 +10,16 @@ class Solution{
     {
     //Code here
         unordered_map<int, int> m;
-        int diff = 0;
+        int maxAns = 0;
         for(int i=0; i<n; i++)
         {
-            if(m.find(arr[i])  == m.end())
-                m[arr[i]] = i;
+            if(m.find(arr[i]) != m.end())
+                maxAns = max(maxAns, i-m[arr[i]]);
             else
-                diff = max(diff, i-m[arr[i]]);
+                m[arr[i]] = i;
         }
         
-        return diff;
+        return maxAns;
     }
 };
 
