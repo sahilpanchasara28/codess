@@ -11,17 +11,24 @@ class Solution{
     bool find3Numbers(int A[], int n, int X)
     {
         //Your Code Here
-        for(int i=0; i<n-2; i++)
+        sort(A, A+n);
+        
+        for(int f=0; f<n-2; f++)
         {
-            int sum = X-A[i];
-            unordered_set<int> s;
-            for(int j=i+1; j<n; j++)
-            {
-                if(s.find(sum-A[j]) != s.end())
-                    return true;
+            int sum = X-A[f];
+            int i=f+1, j=n-1;
             
-                s.insert(A[j]);
+            while(i < j)
+            {
+                if(A[i]+A[j] == sum)
+                    return true;
+                else if(A[i]+A[j] > sum)
+                    j--;
+                else
+                    i++;
+                
             }
+            
         }
         
         return false;
