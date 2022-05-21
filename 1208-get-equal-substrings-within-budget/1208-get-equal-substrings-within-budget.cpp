@@ -7,13 +7,15 @@ public:
         
         while(end < n)
         {
+            curr_cost += abs(s[end] - t[end]);
+            
             while(curr_cost > maxCost)
             {
                 curr_cost -= abs(s[start] - t[start]);
                 start++;
             }
             
-            curr_cost += abs(s[end] - t[end]);
+            
             
             if(curr_cost <= maxCost)
                 ans = max(ans, end-start+1);
