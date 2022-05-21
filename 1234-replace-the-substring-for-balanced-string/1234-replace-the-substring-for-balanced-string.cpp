@@ -24,18 +24,14 @@ public:
         {
             m[s[right]]--;
             
-            if(isBal(m, n/4))
-            {
                 while(left <= right && isBal(m, n/4))
                 {
                     ans = min(ans, right-left+1);
                     m[s[left]]++;
                     left++;
                 }
-            }
         }
         
         return ans;
-        
     }
 };
