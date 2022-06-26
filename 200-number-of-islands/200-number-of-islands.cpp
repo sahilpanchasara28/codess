@@ -1,17 +1,13 @@
 class Solution {
 public:
     void dfs(int i, int j, int n, int m, vector<vector<char>>& grid)
-    {
-        if(i<0 || i >= n || j<0 || j >= m || grid[i][j] != '1')
-            return;
-        
+    {    
         grid[i][j] = '2';
         
-        dfs(i+1, j, n, m, grid);
-        dfs(i, j+1, n, m, grid);
-        dfs(i-1, j, n, m, grid);
-        dfs(i, j-1, n, m, grid);
-        
+        if(i != 0 && grid[i-1][j] == '1') dfs(i-1, j, n, m, grid);
+        if(i != n-1 && grid[i+1][j] == '1') dfs(i+1, j, n, m, grid);
+        if(j != 0 && grid[i][j-1] == '1') dfs(i, j-1, n, m, grid);
+        if(j != m-1 && grid[i][j+1] == '1') dfs(i, j+1, n, m, grid);
     }
     
     int numIslands(vector<vector<char>>& grid) {
