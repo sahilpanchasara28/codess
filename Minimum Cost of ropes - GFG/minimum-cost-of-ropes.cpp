@@ -11,9 +11,6 @@ class Solution
     long long minCost(long long arr[], long long n) {
         // Your code here
         
-        if(n == 1)
-            return 0;
-        
         priority_queue<long long, vector<long long>, greater<long long>> pq;
         
         for(long long i = 0; i<n; i++)
@@ -21,7 +18,7 @@ class Solution
         
         long long ans = 0;
         
-        while(!pq.empty())
+        while(pq.size() > 1)
         {
             long long top1 = pq.top();
             pq.pop();
@@ -30,8 +27,7 @@ class Solution
             
             ans += (top1 + top2);
             
-            if(!pq.empty())
-                pq.push(top1+top2);
+            pq.push(top1+top2);
         }
         
         return ans;
