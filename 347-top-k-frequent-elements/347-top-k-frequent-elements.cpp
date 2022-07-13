@@ -5,14 +5,20 @@ public:
         for(auto i: nums)
             m[i]++;
         
-        priority_queue<pair<int, int>> pq;
+        auto comp = [&m](int n1, int n2) { return m[n1] > m[n2]; };
+
+        priority_queue<int, vector<int>, decltype(comp)> pq(comp);
         for(auto i: m)
-            pq.push({i.second, i.first});
-            
-        vector<int> ans;
-        while(k--)
         {
-            ans.push_back(pq.top().second);
+            pq.push(i.first);
+            if(pq.size() > k)
+                pq.pop();
+        }
+            
+        vector<int> ans(k);
+        for(int i=k-1; i>=0; i--)
+        {
+            ans[i] = pq.top();
             pq.pop();
         }
         
