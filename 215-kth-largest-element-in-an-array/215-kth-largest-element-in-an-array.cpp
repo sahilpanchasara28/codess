@@ -5,9 +5,13 @@ public:
         
         for(auto i: nums)
         {
-            minheap.push(i);
-            if(minheap.size() > k)
+            if(minheap.size() < k)
+                minheap.push(i);
+            else if(i > minheap.top())
+            {
                 minheap.pop();
+                minheap.push(i);
+            }
         }
         
         return minheap.top();
