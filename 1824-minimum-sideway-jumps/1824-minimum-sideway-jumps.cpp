@@ -44,13 +44,45 @@ public:
         }
     }
     
+    int tabulation(vector<int> &obs, int n)
+    {
+        vector<vector<int>> dp(4, vector<int> (n, 1e9));
+        
+        for(int lane=1; lane<=3; lane++)
+            dp[lane][n-1] = 0;
+        
+        for(int pos=n-2; pos>=0; pos--)
+        {
+            for(int currLane=1; currLane<=3; currLane++)
+            {
+                 if(obs[pos+1] != currLane)
+                    dp[currLane][pos] = dp[currLane][pos+1];
+                else
+                {
+                    // sideway jumps
+                    int ans = 1e9;
+                    for(int lane=1; lane<=3; lane++)
+                    {
+                        if(currLane != lane && obs[pos] != lane)
+                            ans = min(ans, 1 + dp[lane][pos+1]);
+                    }
+                    dp[currLane][pos] = ans;
+                }
+            }
+        }
+        
+        return min(dp[2][0], min(dp[1][0]+1, dp[3][0]+1));
+    }
+    
     int minSideJumps(vector<int>& obstacles) {
         
         int n = obstacles.size();
         
         // return recursive(obstacles, 2, 0, n-1);
         
-        vector<vector<int>> dp(4, vector<int>(n, -1));
-        return recursiveMem(obstacles, 2, 0, n-1, dp);
+        // vector<vector<int>> dp(4, vector<int>(n, -1));
+        // return recursiveMem(obstacles, 2, 0, n-1, dp);
+        
+        return tabulation(obstacles, n);
     }
 };
