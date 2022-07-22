@@ -74,6 +74,38 @@ public:
         return min(dp[2][0], min(dp[1][0]+1, dp[3][0]+1));
     }
     
+    int spaceOptimised(vector<int> &obs, int n)
+    {
+        vector<int> curr(4, 1e9);
+        vector<int> next(4, 1e9);
+        
+        for(int lane=1; lane<=3; lane++)
+            next[lane] = 0;
+        
+        for(int pos=n-2; pos>=0; pos--)
+        {
+            for(int currLane=1; currLane<=3; currLane++)
+            {
+                 if(obs[pos+1] != currLane)
+                    curr[currLane] = next[currLane];
+                else
+                {
+                    // sideway jumps
+                    int ans = 1e9;
+                    for(int lane=1; lane<=3; lane++)
+                    {
+                        if(currLane != lane && obs[pos] != lane)
+                            ans = min(ans, 1 + next[lane]);
+                    }
+                    curr[currLane] = ans;
+                }
+            }
+            next = curr;
+        }
+        
+        return min(curr[2], min(curr[1]+1, curr[3]+1));
+    }
+    
     int minSideJumps(vector<int>& obstacles) {
         
         int n = obstacles.size();
@@ -83,6 +115,8 @@ public:
         // vector<vector<int>> dp(4, vector<int>(n, -1));
         // return recursiveMem(obstacles, 2, 0, n-1, dp);
         
-        return tabulation(obstacles, n);
+        // return tabulation(obstacles, n);
+        
+        return spaceOptimised(obstacles, n);
     }
 };
