@@ -44,6 +44,27 @@ public:
         return dp[0][0];
     }
     
+    int spaceOptimised(vector<int> &sat)
+    {
+        int n = sat.size();
+        vector<int> curr(n+1, 0);
+        vector<int> next(n+1, 0);
+        
+        for(int ind=n-1; ind>=0; ind--)
+        {
+            for(int time=ind; time>=0; time--)
+            {
+                int include = sat[ind]*(time+1) + next[time+1];
+                int exclude = next[time];
+
+                curr[time] = max(include, exclude);
+            }
+            next = curr;
+        }
+        
+        return curr[0];
+    }
+    
     int maxSatisfaction(vector<int>& sat) {
         sort(sat.begin(), sat.end());
         
@@ -53,6 +74,8 @@ public:
         // vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
         // return recursiveMem(sat, 0, 0, dp);
         
-        return tabulation(sat);
+        // return tabulation(sat);
+        
+        return spaceOptimised(sat);
     }
 };
