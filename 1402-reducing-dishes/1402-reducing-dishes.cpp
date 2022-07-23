@@ -25,12 +25,34 @@ public:
         return dp[ind][time] = max(include, exclude);
     }
     
+    int tabulation(vector<int> &sat)
+    {
+        int n = sat.size();
+        vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+        
+        for(int ind=n-1; ind>=0; ind--)
+        {
+            for(int time=n-1; time>=0; time--)
+            {
+                int include = sat[ind]*(time+1) + dp[ind+1][time+1];
+                int exclude = dp[ind+1][time];
+
+                dp[ind][time] = max(include, exclude);
+            }
+        }
+        
+        return dp[0][0];
+    }
+    
     int maxSatisfaction(vector<int>& sat) {
         sort(sat.begin(), sat.end());
         
         // return recursive(sat, 0, 0);
-        int n = sat.size();
-        vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
-        return recursiveMem(sat, 0, 0, dp);
+        
+        // int n = sat.size();
+        // vector<vector<int>> dp(n+1, vector<int>(n+1, -1));
+        // return recursiveMem(sat, 0, 0, dp);
+        
+        return tabulation(sat);
     }
 };
