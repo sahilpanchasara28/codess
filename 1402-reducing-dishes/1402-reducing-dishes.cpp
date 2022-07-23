@@ -65,6 +65,26 @@ public:
         return curr[0];
     }
     
+    int spaceOptimised2(vector<int> &sat)
+    {
+        int n = sat.size();
+        int ans = 0;
+        
+        for(int i=0; i<n; i++)
+        {
+            int sum = 0;
+            int c = 1;
+            for(int j=i; j<n; j++)
+            {
+                sum += (sat[j]*c);
+                c++;
+            }
+            
+            ans = max(ans, sum);
+        }
+        return ans;
+    }
+    
     int maxSatisfaction(vector<int>& sat) {
         sort(sat.begin(), sat.end());
         
@@ -76,6 +96,8 @@ public:
         
         // return tabulation(sat);
         
-        return spaceOptimised(sat);
+        // return spaceOptimised(sat);
+        
+        return spaceOptimised2(sat);
     }
 };
