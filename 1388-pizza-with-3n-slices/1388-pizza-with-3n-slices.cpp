@@ -63,6 +63,53 @@ public:
         return max(ans1, ans2);
     }
     
+    int spaceOptimised(vector<int> &arr)
+    {
+        int k = arr.size();
+        
+        vector<int> prev1(k/3 + 1, 0);
+        vector<int> curr1(k/3 + 1, 0);
+        vector<int> next1(k/3 + 1, 0);
+        
+        for(int ind = k-2; ind >= 0; ind--)
+        {
+            for(int sliceLeft = 1; sliceLeft <= k/3; sliceLeft++)
+            {
+                int include = arr[ind] + next1[sliceLeft-1];
+                int exclude = curr1[sliceLeft];
+
+                prev1[sliceLeft] = max(include, exclude);
+            }
+            
+            next1 = curr1;
+            curr1 = prev1;
+        }
+        
+        int ans1 = curr1[k/3];
+        
+        vector<int> prev2(k/3 + 1, 0);
+        vector<int> curr2(k/3 + 1, 0);
+        vector<int> next2(k/3 + 1, 0);
+        
+        for(int ind = k-1; ind >= 1; ind--)
+        {
+            for(int sliceLeft = 1; sliceLeft <= k/3; sliceLeft++)
+            {
+                int include = arr[ind] + next2[sliceLeft-1];
+                int exclude = curr2[sliceLeft];
+
+                prev2[sliceLeft] = max(include, exclude);
+            }
+            
+            next2 = curr2;
+            curr2 = prev2;
+        }
+        
+        int ans2 = curr2[k/3];
+        
+        return max(ans1, ans2);
+    }
+    
     int maxSizeSlices(vector<int>& slices) {
         int k = slices.size();
         
@@ -80,6 +127,8 @@ public:
 
 //         return max(ans1, ans2);
         
-        return tabulation(slices);
+        // return tabulation(slices);
+        
+        return spaceOptimised(slices);
     }
 };
