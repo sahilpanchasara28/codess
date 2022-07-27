@@ -43,6 +43,8 @@ public:
             }
         }
         
+        int ans1 = dp1[0][k/3];
+        
         vector<vector<int>> dp2(k+2, vector<int> (k/3 +1, 0));
         
         for(int ind = k-1; ind >= 1; ind--)
@@ -56,7 +58,6 @@ public:
             }
         }
         
-        int ans1 = dp1[0][k/3];
         int ans2 = dp2[1][k/3];
         
         return max(ans1, ans2);
