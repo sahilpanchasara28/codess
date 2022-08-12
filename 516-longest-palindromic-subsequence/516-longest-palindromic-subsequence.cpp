@@ -96,8 +96,8 @@ int space(string s, string t, int n)
     // vector<vector<int>> dp(n, vector<int> (n, -1));
     // return recursiveMem(s, t, n-1, n-1, dp);
     
-    return tabulation(s, t, n);
+    // return tabulation(s, t, n);
     
-    // return space(s, t, n);
+    return space(s, t, n);
     }
 };
