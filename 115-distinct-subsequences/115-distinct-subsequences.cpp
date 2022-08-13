@@ -128,8 +128,8 @@ int spaceMore(string &t, string &s, int n, int m)
     
     // return tabulation(t, s, lt, ls);
     
-    return space(t, s, lt, ls);
+    // return space(t, s, lt, ls);
     
-    // return spaceMore(t, s, lt, ls);
+    return spaceMore(t, s, lt, ls);
     }
 };
