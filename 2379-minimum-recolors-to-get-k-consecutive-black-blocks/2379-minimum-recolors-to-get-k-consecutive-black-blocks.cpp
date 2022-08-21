@@ -3,13 +3,11 @@ public:
     int minimumRecolors(string blocks, int k) {
         
         int n = blocks.size();
-        int b = 0, w = 0;
+        int w = 0;
         
         for(int i=0; i<k; i++)
         {
-            if(blocks[i] == 'B')
-                b++;
-            else
+            if(blocks[i] == 'W')
                 w++;
         }
         
@@ -18,15 +16,11 @@ public:
         for(int i=k; i<n; i++)
         {
             //include head
-            if(blocks[i] == 'B')
-                b++;
-            else
+            if(blocks[i] == 'W')
                 w++;
             
             //exclude tail
-            if(blocks[i-k] == 'B')
-                b--;
-            else
+            if(blocks[i-k] == 'W')
                 w--;
             
             ans = min(ans, w);
