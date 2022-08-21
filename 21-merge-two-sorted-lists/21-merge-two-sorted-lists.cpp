@@ -33,19 +33,11 @@ public:
             }
         }
         
-        while(h1 != NULL)
-        {
+        if(h1 != NULL)
             ans->next = h1;
-            ans = h1;
-            h1 = h1->next;
-        }
         
-        while(h2 != NULL)
-        {
+        if(h2 != NULL)
             ans->next = h2;
-            ans = h2;
-            h2 = h2->next;
-        }
         
         return h->next;
     }
