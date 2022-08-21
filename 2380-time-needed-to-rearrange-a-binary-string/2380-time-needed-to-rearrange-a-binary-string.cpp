@@ -3,29 +3,15 @@ public:
     int secondsToRemoveOccurrences(string s) {
         
         int n = s.size();
-        int c = 0;
-        bool check = 1;
+        int c = 0, zero = 0;
         
-        while(check)
+        for(int i=0; i<n; i++)
         {
-            check = 0;
-            for(int i=1; i<n; )
-            {
-                if(s[i-1] == '0' && s[i] == '1')
-                {
-                        check = 1;
-                        swap(s[i-1], s[i]);
-                        i+=2;
-                }
-                else
-                    i++;
-            }
-            
-            if(check)
-                c++;
-            
+            if(s[i] == '0')
+                zero++;
+            else if(zero > 0)
+                c = max(c+1, zero);
         }
-        
         
         return c;
     }
