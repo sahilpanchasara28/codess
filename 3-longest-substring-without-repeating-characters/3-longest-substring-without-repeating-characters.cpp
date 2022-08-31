@@ -6,18 +6,13 @@ public:
         
         int l = 0, r = 0, ans = 0;
         
-        while(r < str.size())
+        for(int r=0; r<str.size(); r++)
         {
-            m[str[r]]++;
+            if(m[str[r]])
+                l = max(l, m[str[r]]);
             
-            while(m[str[r]] > 1)
-            {
-                m[str[l]]--;
-                l++;
-            }
-            
+            m[str[r]] = r+1;
             ans = max(ans, r-l+1);
-            r++;
         }
         
         return ans;
