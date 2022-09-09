@@ -16,7 +16,7 @@ public:
         int maxD = 0;
         int ans = 0;
         
-        for(auto x: arr)
+        for(auto &x: arr)
         {
             if(x[1] < maxD)
                 ans++;
