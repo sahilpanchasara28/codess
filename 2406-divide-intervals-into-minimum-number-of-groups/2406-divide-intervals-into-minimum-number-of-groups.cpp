@@ -1,19 +1,16 @@
 class Solution {
 public:
-    int minGroups(vector<vector<int>>& arr) {
+    int minGroups(vector<vector<int>>& intervals) {
         
-        map<int, int> m;
-        int c = 0, r = 0;
-        
-        for(auto &i: arr)
-        {
-            m[i[0]]++;
-            m[i[1]+1]--;
+        vector<vector<int>> A;
+        for (auto& v : intervals) {
+            A.push_back({v[0], 1});
+            A.push_back({v[1] + 1, -1});
         }
-        
-        for(auto &i: m)
-            r = max(r, c+=(i.second));
-        
-        return r;
+        int res = 0, cur = 0;
+        sort(A.begin(), A.end());
+        for (auto& v : A)
+            res = max(res, cur += v[1]);
+        return res;
     }
 };
