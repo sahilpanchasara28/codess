@@ -1,9 +1,9 @@
 class Solution {
 public:
     
-    bool isSafe(int i, int j, int n, int m, vector<vector<int>> &grid)
+    bool isSafe(int i, int j, int n, int m, vector<vector<bool>> &vis, vector<vector<int>> &grid)
     {
-        return (i >= 0 && i < n && j >=0 && j < m && grid[i][j] == 1);
+        return (i >= 0 && i < n && j >=0 && j < m && !vis[i][j] && grid[i][j] == 1);
     }
     
     int orangesRotting(vector<vector<int>>& grid) {
@@ -11,6 +11,7 @@ public:
         int m = grid[0].size();
         
         queue<vector<int>> q;
+        vector<vector<bool>> vis(n, vector<bool> (m, 0));
         int c1 = 0;
 
         for(int i=0; i<n; i++)
@@ -18,7 +19,10 @@ public:
             for(int j=0; j<m; j++)
             {
                 if(grid[i][j] == 2)
+                {
                     q.push({i, j, 0});
+                    vis[i][j] = 1;
+                }
                 
                 if(grid[i][j] == 1)
                     c1++;
@@ -41,9 +45,9 @@ public:
                     int ni = front[0] + row[ind];
                     int nj = front[1] + col[ind];
                     
-                    if(isSafe(ni, nj, n, m, grid))
+                    if(isSafe(ni, nj, n, m, vis, grid))
                     {
-                        grid[ni][nj] = 2;
+                        vis[ni][nj] = 1;
                         q.push({ni, nj, front[2]+1});
                         c++;
                     }
