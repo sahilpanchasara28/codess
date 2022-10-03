@@ -1,21 +1,15 @@
 class Solution {
 public:
     int minCost(string colors, vector<int>& arr) {
-        int total = 0;
-        int s = 0, e = 0, n = colors.size();
+        int total = 0, maxi = 0, n = arr.size();
         
-        while(s < n && e < n)
+        for(int i=0; i<n; i++)
         {
-            int curr = 0, maxi = 0;
-            while(e < n && colors[s] == colors[e])
-            {
-                curr += arr[e];
-                maxi = max(maxi, arr[e]);
-                e++;
-            }
+            if(i > 0 && colors[i] != colors[i-1])
+                maxi = 0;
             
-            total += (curr - maxi);
-            s = e;
+            total += min(maxi, arr[i]);
+            maxi = max(maxi, arr[i]);
         }
         
         return total;
