@@ -7,12 +7,12 @@ public:
         for(int i=0; i<n; i++)
             temp[i] %= space;
         
-        map<int, int> m;
+        unordered_map<int, int> m;
         for(auto i: temp)
             m[i]++;
         
         int maxi = -1;
-        vector<int> ans;
+        unordered_set<int> ind;
         
         for(auto i: m)
         {
@@ -20,28 +20,25 @@ public:
             if(maxi == -1)
             {
                 maxi = i.second;
-                ans.push_back(i.first);
+                ind.insert(i.first);
             }
             else if(maxi == i.second)
-                ans.push_back(i.first);
+                ind.insert(i.first);
             
             else if(maxi < i.second)
             {
                 maxi = i.second;
-                ans.assign(0, 0);
-                ans.push_back(i.first);
+                ind.clear();
+                ind.insert(i.first);
             }
         }
         
-        unordered_set<int> s;
-        for(auto i: ans)
-            s.insert(i);
+        int ans = INT_MAX;
         
-        int qwe = INT_MAX;
         for(int i=0; i<n; i++)
-            if(s.count(temp[i]))
-                qwe = min(qwe, arr[i]);
+            if(ind.count(temp[i]))
+                ans = min(ans, arr[i]);
         
-        return qwe;
+        return ans;
     }
 };
