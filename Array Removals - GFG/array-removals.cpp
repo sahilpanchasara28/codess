@@ -13,8 +13,8 @@ class Solution{
     
     int solve(vector<int> &arr, int i, int j, int k, vector<vector<int>> &dp)
     {
-        if(i > j)
-            return 1e9;
+        if(i >= j)
+            return 0;
             
         if(arr[j] - arr[i] <= k)
             return 0;
@@ -26,8 +26,7 @@ class Solution{
 
         ans = min(ans, 1 + solve(arr, i+1, j, k, dp));
         ans = min(ans, 1 + solve(arr, i, j-1, k, dp));
-        ans = min(ans, 2 + solve(arr, i+1, j-1, k, dp));
-        
+
         return dp[i][j] = ans;
     }
     
