@@ -30,11 +30,61 @@ int main()
 
 // } Driver Code Ends
 
+class TrieNode {
+    public:
+    TrieNode* left;
+    TrieNode* right;
+    bool isTerminal;
+    
+    TrieNode() {
+       left = NULL;
+       right = NULL;
+       isTerminal = false;
+    }
+};
+ 
+class Trie {
+    public:
+    TrieNode* root;
+ 
+    Trie() {
+        root = new TrieNode();
+    }
+ 
+    bool insert(vector<int> &word)
+    {
+        TrieNode* node = root;
+        
+        for(auto i: word)
+        {
+            if(i) // 1
+            {
+                if(node->right == NULL)
+                    node->right = new TrieNode();
+                
+                node = node->right;
+            }
+            else // 0
+            {
+                if(node->left == NULL)
+                    node->left = new TrieNode();
+                
+                node = node->left;
+            }
+        }
+        
+        if(node->isTerminal)
+            return 0;
+        
+        node->isTerminal = true;
+        return 1;
+    }
+};
 
-/*You are required to complete this function*/
+
 vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
 {
-    set<vector<int>> s;
+    Trie* root = new Trie();
     vector<vector<int>> ans;
     
     for(int i=0; i<row; i++)
@@ -42,11 +92,10 @@ vector<vector<int>> uniqueRow(int M[MAX][MAX],int row,int col)
         vector<int> temp;
         for(int j=0; j<col; j++)
             temp.push_back(M[i][j]);
+            
+        bool check = root->insert(temp);
         
-        int n = s.size();
-        s.insert(temp);
-        
-        if(n+1 == s.size())
+        if(check)
             ans.push_back(temp);
     }
     
