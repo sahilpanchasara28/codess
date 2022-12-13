@@ -15,6 +15,8 @@ class Solution {
             if(!vis[neigh])
             {
                 dfs(neigh, node, adj, time, low, vis, ans);
+                
+                // once the node is back compare it's low
                 low[node] = min(low[node], low[neigh]);
                 
                 // can this node --- neigh be a bridge
@@ -23,7 +25,10 @@ class Solution {
                     ans.push_back({node, neigh});
             }
             else
+            {
+                // neigh is already visited, so just take it's low
                 low[node] = min(low[node], low[neigh]);
+            }
         }
     }
     
