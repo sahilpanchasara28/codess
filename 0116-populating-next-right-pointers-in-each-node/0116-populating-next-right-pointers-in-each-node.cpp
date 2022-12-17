@@ -19,10 +19,9 @@ public:
 class Solution {
 public:
     
-    void solve(Node* root, vector<vector<Node*>> &ans)
-    {
-        if(root == NULL)
-            return;
+    Node* connect(Node* root) {
+       if(root == NULL)
+           return root;
         
         queue<Node*> q;
         q.push(root);
@@ -30,35 +29,21 @@ public:
         while(!q.empty())
         {
             int n = q.size();
-            vector<Node*> temp;
+            Node* rightptr = NULL;
             
             while(n--)
             {
                 auto front = q.front();
                 q.pop();
                 
-                temp.push_back(front);
-                
-                if(front->left)
-                    q.push(front->left);
+                front->next = rightptr;
+                rightptr = front;
                 
                 if(front->right)
                     q.push(front->right);
-            }
-            
-            ans.push_back(temp);
-        }
-    }
-    
-    Node* connect(Node* root) {
-        vector<vector<Node*>> ans;
-        solve(root, ans);
-        
-        for(auto v: ans)
-        {
-            for(int i=1; i<v.size(); i++)
-            {
-                v[i-1]->next = v[i];
+                
+                if(front->left)
+                    q.push(front->left);
             }
         }
         
