@@ -8,7 +8,10 @@ public:
         for(int i=0; i<n; i++)
         {
             if(words[i] == target)
-                ans = min(ans, min(abs(startIndex - i), n-abs(startIndex - i)));
+                ans = min(ans, 
+                          min(abs(startIndex - i),  // left distance
+                              n-abs(startIndex - i)) // right distance
+                         );
         }
         
         if(ans == 1e9)
