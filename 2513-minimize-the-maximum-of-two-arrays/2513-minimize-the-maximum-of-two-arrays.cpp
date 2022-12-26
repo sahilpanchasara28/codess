@@ -7,7 +7,7 @@ public:
         ll s = 1, e = INT_MAX;
         ll LCM = (1LL * d1 * d2) / (__gcd(d1, d2));
         
-        while(s < e)
+        while(s <= e)
         {
             // total number of elements (1 to x)
             ll x = (s+e)/2;
@@ -44,7 +44,7 @@ public:
             
             // if d has more elements left, then it is a possible answer lets go tot the left side.
             if(d >= 0)
-                e = x;
+                e = x-1;
             else // lets go to right side.
                 s = x+1;
         }
