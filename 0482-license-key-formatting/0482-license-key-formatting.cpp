@@ -11,25 +11,25 @@ public:
     
     string licenseKeyFormatting(string s, int k) {
         string ans = "";
-        string temp = "";
+        int c = 0;
         
         for(int i=s.size()-1; i>=0; i--)
         {
             if(s[i] == '-')
                 continue;
             
-            if(temp.size() == k)
+            ans.push_back(to_upper(s[i]));
+            c++;
+            
+            if(c == k)
             {
-                temp.push_back('-');
-                ans += temp;
-                temp = "";
+                ans.push_back('-');
+                c = 0;
             }
-        
-            temp.push_back(to_upper(s[i]));
         }
         
-        if(temp.size() > 0)
-            ans += temp;
+        if(ans.size() > 0 and ans.back() == '-')
+            ans.pop_back();
         
         reverse(ans.begin(), ans.end());
         return ans;
